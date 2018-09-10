@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SlotMachine implements ActionListener
@@ -24,10 +25,11 @@ public class SlotMachine implements ActionListener
 	JLabel slot2 = loadImage("lemon.png");
 	JLabel slot3 = loadImage("watermelon.png");
 	
+	JFrame frame = new JFrame();
+	JPanel panel = new JPanel();
+	
 	void createGUI()
 	{
-		JFrame frame = new JFrame();
-		JPanel panel = new JPanel();
 		frame.setVisible(true);
 		frame.add(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,6 +63,7 @@ public class SlotMachine implements ActionListener
 			image = "watermelon.png";
 		}
 		
+		System.out.println(image);
 		return image;
 	}
 	
@@ -74,8 +77,27 @@ public class SlotMachine implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		slot1 = loadImage(chooseRandomImage());
-		slot2 = loadImage(chooseRandomImage());
-		slot3 = loadImage(chooseRandomImage());
+		panel.remove(slot1);
+		panel.remove(slot2);
+		panel.remove(slot3);
+		
+		String slot1i = chooseRandomImage();
+		String slot2i = chooseRandomImage();
+		String slot3i = chooseRandomImage();
+		
+		slot1 = loadImage(slot1i);
+		slot2 = loadImage(slot2i);
+		slot3 = loadImage(slot3i);
+		
+		panel.add(slot1);
+		panel.add(slot2);
+		panel.add(slot3);
+		
+		frame.pack();
+		
+		if(slot1i == slot2i && slot1i == slot3i)
+		{
+			JOptionPane.showMessageDialog(null, "YOU WON");
+		}
 	}
 }
